@@ -4,7 +4,64 @@
     <title>Car App</title>
     
 <body>
-    <from method='POST'>
+    <form method='GET' action="{% url 'home'%}">
         <h1><center><button><a href="{% url 'car-saler-form' %}" style="text-decoration: none;"> list car</a></button></center></h1>
+
+
+        <input type="text" placeholder="Search car" name="search">
+        <button type="submit">Search car</button>
+        {% comment %} <button type="submit">Clean</button> {% endcomment %}
+        <br>
+        <table border='5px'>
+           
+                <tr>
+                    <th>id</th>
+                    <th>saler name</th>
+                    <th>saler mobile</th>
+                    <th>email</th>
+                    <th>make</th>
+                    <th>model</th>
+                    <th>year</th>
+                    <th>condition</th>
+                    <th>Asking price</th>
+                </tr>
+            
+            <tbody>
+                {% for client in users %}
+                <tr>
+                    <td>{{ client.id }}</td>&nbsp;
+                    <td>{{ client.saler_name }}</td>&nbsp;
+                    <td>{{ client.saler_mobile  }}</td>&nbsp;
+                    <td>{{ client.email }}</td>&nbsp;
+                    <td>{{ client.make }}</td>&nbsp;
+                    <td>{{ client.model }}</td>&nbsp;
+                    <td>{{ client.year }}</td>&nbsp;
+                    <td>{{ client.Condition }}</td>&nbsp;
+                    <td>{{ client.asking_price }}</td>&nbsp;
+                 </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            {% if users.has_other_pages %}
+               
+                {% if users.has_previous %}
+                   <a href="?page={{ users.previous_page_number }}">&laquo;</a>
+                {% else %}
+               
+            {% endif %}
+            {% for i in users.paginator.page_range %}
+                {% if users.number == i %}
+                    <span>{{ i }}</span>
+                {% else %}
+                    <a href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if users.has_next %}
+                <a href="?page={{ users.next_page_number }}">&raquo;</a>
+            {% else %}
+
+            {% endif %}
+                
+            {% endif %}
     </form>
 </body>
