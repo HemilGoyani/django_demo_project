@@ -1,0 +1,59 @@
+{% if user.is_authenticated %}
+ 
+    Wellcome {{user.username}}!  
+ 
+{% endif %}
+<head>
+    <title>Car App</title>
+    <style>
+        to go underneath the header and footer */
+        body{        
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        .fixed-header, .fixed-footer{
+            width: 100%;
+            position: fixed;        
+            background: #e6e6e6;
+            padding: 10px 0;
+            color: #daf1f1;
+        }
+        .fixed-header{
+            top: 0;
+        }
+        .fixed-footer{
+            bottom: 0;
+        }
+        .container{
+            width: 80%;
+            margin: 0 auto; /* Center the DIV horizontally */
+        }
+        nav a{
+            color: #030303;
+            text-decoration: none;
+            padding: 7px 25px;
+            display: inline-block;
+        }
+    </style>
+    
+</head>  
+{% block body %}
+
+    <div class="fixed-header">
+        <div class="container">
+            <nav>
+                <a href="{% url 'car-saler-form' %}" style="text-decoration: none;"> List Car</a>
+                <a href="#">About</a>
+                <a href="#">Products</a>
+                <a href="#">Services</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout'%}">Logout</a>&nbsp;&nbsp;
+                {% else %}
+                <a href="{% url 'login'%}">Login</a>&nbsp;&nbsp;
+                {% endif %}
+                
+
+            </nav>
+        </div>
+    </div>
+{% endblock %}

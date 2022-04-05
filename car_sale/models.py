@@ -8,7 +8,6 @@ from datetime import datetime
 from djmoney.models.fields import MoneyField
 from djmoney.money import Money
 from djmoney.models.validators import MaxMoneyValidator, MinMoneyValidator
-from djmoney.models.managers import money_manager
 
 
 class CarSaler(models.Model):
@@ -33,9 +32,11 @@ class CarSaler(models.Model):
     year = models.IntegerField(('year'),choices=year_dropdown, default=datetime.now().year)
     Condition = models.CharField(max_length=10, choices= CHOICES)
     asking_price= MoneyField(max_digits=8,
-        decimal_places=2,validators=[MinMoneyValidator(1000),
-        MaxMoneyValidator(100000),] ,default_currency='USD')
-    
+        decimal_places=2,validators=[
+        MinMoneyValidator(Money(1000, 'USD')),
+        MaxMoneyValidator(Money(100000, 'USD')),
+        ] ,default_currency='USD')
+    is_sell = models.BooleanField(default=False)
     
     def __str__(self):
         return self.saler_name
