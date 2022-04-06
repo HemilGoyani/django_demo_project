@@ -35,7 +35,16 @@
             display: inline-block;
         }
     </style>
-    
+    <script>
+        function myFunction() {
+        var search = document.getElementById('demo').value
+        console.log(search);
+        }
+        function myFunction1() {
+        var search = document.getElementById('demo').value =""
+        console.log(search);
+        }
+    </script>
 </head>  
 <body>
     
@@ -57,14 +66,21 @@
         </div>
     </div>
     <br><br><br><br><br><br><br>
+        <form method='POST' action="{% url 'home'%}">
+            {% csrf_token %}
+            <input type="text" placeholder="Search car" name="search" id='demo'>
+            <input  type="submit" onclick="myFunction()" value="search">
+            {% comment %} <button type="submit" onclick="myFunction()">Search</button> {% endcomment %}
+            <button type="submit" onclick="myFunction1()">Reset</button>
+            <br><br>
+        </form>
     
-    
-        <form method='GET' action="{% url 'home'%}">
-            
-            <input type="searchbox" placeholder="Search car" name="search">
+        <form method='GET' action="#">
+            {% csrf_token %}
+            {% comment %} <input type="searchbox" placeholder="Search car" name="search">
             <button type="submit">Search</button>
             <button type="submit">Reset</button>
-            <br><br>
+            <br><br> {% endcomment %}
             {% block body %}
             <table border='5px'id = "table">
                 <thead>
@@ -121,6 +137,7 @@
                 {% endif %}
                     
                 {% endif %}
+                
         </form>
 </body>
 </html>

@@ -16,11 +16,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from user_authentication.views import loginPage, registerPage, logoutUser
 
 urlpatterns = [
-    path('user-authentication',include('user_authentication.urls')),
+    path('sign-up/', registerPage, name="register"),
+    path('login/', loginPage, name="login"),
     path('admin/', admin.site.urls),
     path('',include('car_sale.urls')),
-    path('car-buy/', include('car_buy.urls')),
-        
+    path('car-buyer-form/<int:id>', include('car_buy.urls')),
+    path('logout/', logoutUser, name="logout"),
+           
 ]

@@ -1,7 +1,7 @@
 {% block content %}
     <center>
     <h1>Car Buy Form</h1>
-    <form method = 'POST' action="{% url 'car-buyer-save' data.id %}">
+    <form method = 'POST' action="{% url 'car-buyer-save'data.id %}">
         {% csrf_token %}
         <table>
             

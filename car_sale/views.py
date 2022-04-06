@@ -11,9 +11,7 @@ from django.db.models import Q
 
 
 def home(request):
-    print(request.GET.get("search"))
-    search_text = request.GET.get('search')
-    print(search_text,"=-=-=-=-=")
+    search_text = request.POST.get('search')
     if search_text:
         user_list = CarSaler.objects.filter(Q(year__icontains=search_text) | Q(make__icontains=search_text))
         if user_list:
@@ -28,7 +26,7 @@ def home(request):
 
             return render(request, 'home.html', { 'users': users })       
         else:
-            return HttpResponse("No results found for your filter")        
+            return render(request, 'not_found.html')        
         
     else:
         

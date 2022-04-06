@@ -1,6 +1,6 @@
 from tkinter.tix import Form
 from django import forms
-from .models import *
+from .models import CarBuyer
 
 
 class CarBuyerForm(forms.ModelForm):

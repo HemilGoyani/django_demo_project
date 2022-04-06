@@ -3,27 +3,17 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
 from car_sale.models import CarSaler
-# Create your views here.
 
 
-def car_buyer(request, id):
+
+def car_buyer(request, id): 
     car_id = int(id)
-    print(car_id,"=-=-=-=")
     car_data = CarSaler.objects.get(id = car_id)
-    buy = CarBuyerForm()
-    if request.method == 'POST':
-        if buy.is_valid():
-            buy.save()
-            return redirect('home')
-        else:
-            return render("something went wrong")
-    else:
-        return render(request, 'car_buyer_form.html', {'data':car_data})  
+    return render(request, 'car_buyer_form.html', {'data':car_data})  
     
     
 def car_buyer_save(request, id):
     car_id = int(id)
-    print(request.method,"=-=-=-=-=-")
     if request.method == 'POST':
         buyer_save = CarBuyerForm(request.POST, request.FILES)
         if buyer_save.is_valid():
@@ -45,4 +35,4 @@ def car_buyer_save(request, id):
             return redirect('home')
         
         else:
-            return HTTPResponse('Form is not valid, please validate the form')
+            return HttpResponse('Form is not valid, please validate the form')
