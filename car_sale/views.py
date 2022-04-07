@@ -44,7 +44,8 @@ def car_saler_form(request):
             saler.save()
             return redirect('success')
         else:
-            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'home'}}">reload</a>""")
+            return render(request, "car_saler_form.html", {'upload_form': saler})
+
     else:
         return render(request, 'car_saler_form.html', {'upload_form': saler})
 
@@ -60,5 +61,4 @@ def resale(request, id):
     resale.is_sell = False
     resale.save()
 
-    Sale_data = CarSaler.objects.all().order_by('-id')
-    return render(request, 'home.html', {'users': Sale_data})
+    return render(request, 'available.html')
