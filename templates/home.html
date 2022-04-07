@@ -80,8 +80,9 @@
                         <th>year</th>
                         <th>condition</th>
                         <th>Asking price</th>
-                        <th>Buy</th>
-                        
+                        {% if user.is_authenticated %}
+                            <th>Buy</th>
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
@@ -94,9 +95,18 @@
                         <td>{{ client.make }}</td>&nbsp;
                         <td>{{ client.model }}</td>&nbsp;
                         <td>{{ client.year }}</td>&nbsp;
-                        <td>{{ client.Condition }}</td>&nbsp;
+                        <td>{{ client.condition }}</td>&nbsp;
                         <td>{{ client.asking_price }}</td>&nbsp;
-                        <td><a href="car-buyer-form/{{client.id}}">Buy</a></td>
+                        {% if user.is_authenticated %}
+                            {% if client.is_sell%}
+                                <td><label>Sold</label></td>
+                                {% if user.username == 'make'%}
+                                    <td><button><a href="{% url 'resale' client.id  %}">Available</a></button></td>
+                                {% endif %}
+                            {% else %}
+                                <td><a href="car-buyer-form/{{client.id}}">Buy</a></td>
+                            {% endif %}
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>    

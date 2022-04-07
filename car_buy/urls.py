@@ -1,10 +1,10 @@
-from django.urls import path
-from . import views
+# from django.urls import path
+# from . import views
 
 
-urlpatterns = [
+# urlpatterns = [
 
-    path('', views.car_buyer, name='car-buyer-form'),
-    path('car-buyer-savedata/<int:id>/',
-         views.car_buyer_save, name='car-buyer-savedata')
-]
+#     path('', views.car_buyer, name='car-buyer-form'),
+#     path('car-buyer-savedata/<int:id>',
+#          views.car_buyer_save, name="car-buyer-savedata")
+# ]

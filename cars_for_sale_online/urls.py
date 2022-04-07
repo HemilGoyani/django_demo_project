@@ -17,13 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from user_authentication.views import loginPage, registerPage, logoutUser
-
+from car_buy.views import car_buyer, car_buyer_save
+from car_sale.views import resale
 urlpatterns = [
     path('sign-up/', registerPage, name="register"),
     path('login/', loginPage, name="login"),
     path('admin/', admin.site.urls),
-    path('',include('car_sale.urls')),
-    path('car-buyer-form/<int:id>', include('car_buy.urls')),
+    path('', include('car_sale.urls')),
+    path('car-buyer-form/<int:id>', car_buyer, name="car-buyer-form"),
+    path('car-buyer-savedata/<int:id>',
+         car_buyer_save, name="car-buyer-savedata"),
     path('logout/', logoutUser, name="logout"),
-           
+    path('resale/<int:id>', resale, name="resale")
+
 ]

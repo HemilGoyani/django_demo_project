@@ -1,6 +1,8 @@
 from re import search
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+from car_buy.models import CarBuyer
 from .models import CarSaler
 from car_sale.models import CarSaler
 from .forms import CarSaleForm
@@ -50,3 +52,13 @@ def car_saler_form(request):
 def successform(request):
     id = CarSaler.objects.latest('id').id
     return render(request, 'success.html', {'upload_form': id})
+
+
+def resale(request, id):
+    car_id = int(id)
+    resale = CarSaler.objects.get(id=car_id)
+    resale.is_sell = False
+    resale.save()
+
+    Sale_data = CarSaler.objects.all().order_by('-id')
+    return render(request, 'home.html', {'users': Sale_data})

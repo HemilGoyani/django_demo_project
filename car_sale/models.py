@@ -19,24 +19,26 @@ class CarSaler(models.Model):
         (POOR, "poor"),
         (FAIR, "fair"),
         (GOOD, "good"),
-        (EXCELLENT,'excellent'),
+        (EXCELLENT, 'excellent'),
     )
     year_dropdown = []
     for y in range(2011, (datetime.now().year + 1)):
         year_dropdown.append((y, y))
     saler_name = models.CharField(max_length=20)
-    saler_mobile = models.CharField(max_length = 10, validators = [MinLengthValidator(10), MaxLengthValidator(10)])
-    email = models.EmailField(null=True )
+    saler_mobile = models.CharField(max_length=10, validators=[
+                                    MinLengthValidator(10), MaxLengthValidator(10)])
+    email = models.EmailField(null=True)
     make = models.CharField(max_length=50)
     model = models.CharField(max_length=50)
-    year = models.IntegerField(('year'),choices=year_dropdown, default=datetime.now().year)
-    Condition = models.CharField(max_length=10, choices= CHOICES)
-    asking_price= MoneyField(max_digits=8,
-        decimal_places=2,validators=[
-        MinMoneyValidator(Money(1000, 'USD')),
-        MaxMoneyValidator(Money(100000, 'USD')),
-        ] ,default_currency='USD')
+    year = models.IntegerField(
+        ('year'), choices=year_dropdown, default=datetime.now().year)
+    condition = models.CharField(max_length=10, choices=CHOICES)
+    asking_price = MoneyField(max_digits=8,
+                              decimal_places=2, validators=[
+                                  MinMoneyValidator(Money(1000, 'USD')),
+                                  MaxMoneyValidator(Money(100000, 'USD')),
+                              ], default_currency='USD')
     is_sell = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return self.saler_name

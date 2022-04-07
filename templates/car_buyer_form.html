@@ -1,25 +1,44 @@
 {% extends 'base.html'%}
 {% block content %}
+<script>
+    function validateForm() {
+        let name = document.forms["buyerForm"]["buyer_name"].value;
+        if (name == "") {
+            alert("Name must be filled out");
+            return false;
+        }
+        let mobile = document.forms["buyerForm"]["buyer_mobile"].value;
+        if (mobile == "") {
+            alert("mobile must be filled out");
+            return false;
+        }
+        let email = document.forms["buyerForm"]["email"].value;
+        if (email == "") {
+            alert("email must be filled out");
+            return false;
+        }
+    }
+</script>
     <center>
     <h1>Car Buy Form</h1>
-    <form method = 'POST' >
+    <form method = 'POST' action="{% url 'car-buyer-savedata' id=data.id %}" name="buyerForm" onsubmit="return validateForm()">
         {% csrf_token %}
         <table>
             
                 <tr><th><label for="id_buyer_name">Buyer name:</label></th><td><input type="text" name="buyer_name" ></td></tr>
                 <tr><th><label for="id_buyer_mobile">Buyer mobile:</label></th><td><input type="text" name="buyer_mobile" ></td></tr>
                 <tr><th><label for="id_buyer_mobile">email:</label></th><td><input type="text" name="email" ></td></tr>
-                <tr><th><label for="id_make">Make:</label></th><td><input type="text" name="make" value="{{data.make}}" disabled></td></tr>
-                <tr><th><label for="id_model">Model:</label></th><td><input type="text" name="model" value="{{data.model}}" disabled></td></tr>
-                <tr><th><label for="id_year">Year:</label></th><td><input type="number" name="year" value="{{data.year}}" disabled></td></tr>
-                <tr><th><label for="id_Condition">Condition:</label></th><td><input type="text" name="Condition" value="{{data.Condition}}" disabled></td></tr>
-                <tr><th><label for="id_asking_pricce">Asking pricce:</label></th><td><input type="floatformat" name="asking_price" value="{{data.asking_price}}" disabled></td></tr>
+                <tr><th><label for="id_make">Make:</label></th><td><input type="text" name="make" value="{{data.make}}" readonly></td></tr>
+                <tr><th><label for="id_model">Model:</label></th><td><input type="text" name="model" value="{{data.model}}" readonly></td></tr>
+                <tr><th><label for="id_year">Year:</label></th><td><input type="number" name="year" value="{{data.year}}" readonly></td></tr>
+                <tr><th><label for="id_condition">Condition:</label></th><td><input type="text" name="condition" value="{{data.condition}}" readonly></td></tr>
+                <tr><th><label for="id_asking_pricce">Asking pricce:</label></th><td><input type="text" name="asking_price" value="{{data.asking_price}}" readonly></td></tr>
                         
         </table>
         <br>
         <button type="submit" >Submit</button>
 
-         &nbsp; <a href="{% url 'home' %}">home</a>
+        &nbsp; <a href="{% url 'home' %}">home</a>
 
     </form>
 </center>

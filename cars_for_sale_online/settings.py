@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+
 from pathlib import Path
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -141,3 +142,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'hemil.tagline@gmail.com'
+EMAIL_HOST_PASSWORD = 'AdpUK7PC'
+
+# if not DEBUG:
+#     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#     EMAIL_HOST = os.environ.get('EMAIL_HOST')
+#     EMAIL_PORT = 587
+#     EMAIL_USE_TLS = True
+#     EMAIL_USE_SSL = False
+#     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+#     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+#     RECIPIENT_ADDRESS = os.environ.get('RECIPIENT_ADDRESS')
+# else:
+#     EMAIL_BACKEND = ('django.core.mail.backends.console.EmailBackend')

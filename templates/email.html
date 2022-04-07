@@ -1,0 +1,36 @@
+            
+        {% block body %}
+            <table border='5px'>
+                <thead>
+                    <tr>
+                        {% comment %} <th>id</th> {% endcomment %}
+                        <th>saler name</th>
+                        <th>saler mobile</th>   
+                        <th>email</th>
+                        <th>make</th>
+                        <th>model</th>
+                        <th>year</th>
+                        <th>condition</th>
+                        <th>Asking price</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        {% comment %} <td>{{ client.id }}</td> {% endcomment %}
+                        <td>{{ client.saler_name }}</td>
+                        <td>{{ client.saler_mobile  }}</td>
+                        <td>{{ client.email }}</td>
+                        <td>{{ client.make }}</td>
+                        <td>{{ client.model }}</td>
+                        <td>{{ client.year }}</td>
+                        <td>{{ client.condition }}</td>
+                        <td>{{ client.asking_price }}</td>
+                        
+                    </tr>
+                    
+                </tbody>    
+            </table>
+        {% endblock %}
