@@ -1,8 +1,4 @@
-{% if user.is_authenticated %}
- 
-    Wellcome {{user.username}}!  
- 
-{% endif %}
+<html>
 <head>
     <title>Car App</title>
     <style>
@@ -13,16 +9,11 @@
         }
         .fixed-header, .fixed-footer{
             width: 100%;
-            position: fixed;        
+            position: auto;        
             background: #e6e6e6;
             padding: 10px 0;
             color: #daf1f1;
-        }
-        .fixed-header{
-            top: 0;
-        }
-        .fixed-footer{
-            bottom: 0;
+            margin-top: auto;
         }
         .container{
             width: 80%;
@@ -38,12 +29,17 @@
     
 </head>  
 {% block body %}
+{% if user.is_authenticated %}
+ 
+    Wellcome {{user.username}}!  
+ 
+{% endif %}
 
     <div class="fixed-header">
         <div class="container">
             <nav>
+                <a href="{% url 'home'%}">Home</a>
                 <a href="{% url 'car-saler-form' %}" style="text-decoration: none;"> List Car</a>
-                <a href="#">About</a>
                 <a href="#">Products</a>
                 <a href="#">Services</a>
                 {% if user.is_authenticated %}
@@ -56,4 +52,7 @@
             </nav>
         </div>
     </div>
+    {% block content%}
+    {% endblock %}
 {% endblock %}
+</html>

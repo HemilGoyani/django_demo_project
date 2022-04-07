@@ -1,7 +1,8 @@
+{% extends 'base.html'%}
 {% block content %}
     <center>
     <h1>Car Buy Form</h1>
-    <form method = 'POST' action="{% url 'car-buyer-save'data.id %}">
+    <form method = 'POST' >
         {% csrf_token %}
         <table>
             
@@ -17,7 +18,7 @@
         </table>
         <br>
         <button type="submit" >Submit</button>
-        
+
          &nbsp; <a href="{% url 'home' %}">home</a>
 
     </form>

@@ -9,11 +9,7 @@
 <head>
     <title>Car App</title>
     <style>
-        to go underneath the header and footer */
-        body{        
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
+        
         .fixed-header, .fixed-footer{
             width: 100%;
             position: fixed;        
@@ -22,8 +18,6 @@
             color: #daf1f1;
             margin-top: 10px;
         }
-        
-        
         .container{
             width: 80%;
             margin: 0 auto; /* Center the DIV horizontally */
@@ -36,12 +30,9 @@
         }
     </style>
     <script>
-        function myFunction() {
-        var search = document.getElementById('demo').value
-        console.log(search);
-        }
-        function myFunction1() {
-        var search = document.getElementById('demo').value =""
+        
+        function resetfun() {
+        var search = document.getElementById('searchbox').value =""
         console.log(search);
         }
     </script>
@@ -68,26 +59,21 @@
     <br><br><br><br><br><br><br>
         <form method='POST' action="{% url 'home'%}">
             {% csrf_token %}
-            <input type="text" placeholder="Search car" name="search" id='demo'>
-            <input  type="submit" onclick="myFunction()" value="search">
-            {% comment %} <button type="submit" onclick="myFunction()">Search</button> {% endcomment %}
-            <button type="submit" onclick="myFunction1()">Reset</button>
+            <input type="text" placeholder="Search car" name="txtsearch" id='searchbox' value="{{searchval}}">
+            <input  type="submit"  value="search">
+            <button type="reset" onclick="searchfun()"><a href="{% url 'home'%}" style="text-decoration:none;">Reset</a></button>
             <br><br>
         </form>
     
         <form method='GET' action="#">
             {% csrf_token %}
-            {% comment %} <input type="searchbox" placeholder="Search car" name="search">
-            <button type="submit">Search</button>
-            <button type="submit">Reset</button>
-            <br><br> {% endcomment %}
             {% block body %}
-            <table border='5px'id = "table">
+            <table border='5px'>
                 <thead>
                     <tr>
                         <th>id</th>
                         <th>saler name</th>
-                        <th>saler mobile</th>
+                        <th>saler mobile</th>   
                         <th>email</th>
                         <th>make</th>
                         <th>model</th>
@@ -115,29 +101,30 @@
                     {% endfor %}
                 </tbody>    
             </table>
-            {% endblock %}
                 {% if users.has_other_pages %}
                 
                     {% if users.has_previous %}
                     <a href="?page={{ users.previous_page_number }}">&laquo;</a>
                     {% else %}
                 
-                {% endif %}
-                {% for i in users.paginator.page_range %}
-                    {% if users.number == i %}
-                        <span>{{ i }}</span>
-                    {% else %}
-                        <a href="?page={{ i }}">{{ i }}</a>
                     {% endif %}
-                {% endfor %}
-                {% if users.has_next %}
-                    <a href="?page={{ users.next_page_number }}">&raquo;</a>
-                {% else %}
+                    {% for i in users.paginator.page_range %}
+                        {% if users.number == i %}
+                            <span>{{ i }}</span>
+                        {% else %}
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if users.has_next %}
+                        <a href="?page={{ users.next_page_number }}">&raquo;</a>
 
-                {% endif %}
+                    {% endif %}
                     
                 {% endif %}
                 
+            {% endblock %}
+                
         </form>
+        
 </body>
 </html>

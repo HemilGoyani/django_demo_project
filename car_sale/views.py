@@ -9,40 +9,29 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
 
-
 def home(request):
-    search_text = request.POST.get('search')
+    search_text = request.POST.get('txtsearch')
     if search_text:
-        user_list = CarSaler.objects.filter(Q(year__icontains=search_text) | Q(make__icontains=search_text))
+        user_list = CarSaler.objects.filter(
+            Q(year__icontains=search_text) | Q(make__icontains=search_text))
+
         if user_list:
-            page = request.GET.get('page', 1)
-            paginator = Paginator(user_list,4)
-            try:
-                users = paginator.page(page)
-            except PageNotAnInteger:
-                users = paginator.page(1)
-            except EmptyPage:
-                users = paginator.page(paginator.num_pages)
+            paginator = Paginator(user_list, 4)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
 
-            return render(request, 'home.html', { 'users': users })       
+            return render(request, 'home.html', {'users': page_obj, 'searchval': search_text})
         else:
-            return render(request, 'not_found.html')        
-        
+            return render(request, 'not_found.html')
+
     else:
-        
+
         user_list = CarSaler.objects.all().order_by('-id')
-        page = request.GET.get('page', 1)
-        paginator = Paginator(user_list,4)
-        try:
-            users = paginator.page(page)
-        except PageNotAnInteger:
-            users = paginator.page(1)
-        except EmptyPage:
-            users = paginator.page(paginator.num_pages)
+        paginator = Paginator(user_list, 4)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-        return render(request, 'home.html', { 'users': users })
-
-   
+        return render(request, 'home.html', {'users': page_obj})
 
 
 def car_saler_form(request):
@@ -56,8 +45,8 @@ def car_saler_form(request):
             return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'home'}}">reload</a>""")
     else:
         return render(request, 'car_saler_form.html', {'upload_form': saler})
-    
-    
+
+
 def successform(request):
     id = CarSaler.objects.latest('id').id
-    return render(request, 'success.html',{'upload_form': id})
+    return render(request, 'success.html', {'upload_form': id})
