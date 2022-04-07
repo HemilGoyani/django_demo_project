@@ -12,7 +12,32 @@ from django.db.models import Q
 
 
 def home(request):
-    search_text = request.POST.get('txtsearch')
+    # search_text = request.POST.get('txtsearch')
+    # if search_text:
+    #     user_list = CarSaler.objects.filter(
+    #         Q(year__icontains=search_text) | Q(make__icontains=search_text))
+
+    #     if user_list:
+    #         paginator = Paginator(user_list, 4)
+    #         page_number = request.GET.get('page')
+    #         page_obj = paginator.get_page(page_number)
+
+    #         return render(request, 'home.html', {'users': page_obj, 'searchval': search_text})
+    #     else:
+    #         return render(request, 'not_found.html')
+
+    # else:
+
+    user_list = CarSaler.objects.all().order_by('-id')
+    paginator = Paginator(user_list, 4)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'home.html', {'users': page_obj})
+
+
+def search(request):
+    search_text = request.GET.get('txtsearch')
     if search_text:
         user_list = CarSaler.objects.filter(
             Q(year__icontains=search_text) | Q(make__icontains=search_text))
@@ -25,15 +50,6 @@ def home(request):
             return render(request, 'home.html', {'users': page_obj, 'searchval': search_text})
         else:
             return render(request, 'not_found.html')
-
-    else:
-
-        user_list = CarSaler.objects.all().order_by('-id')
-        paginator = Paginator(user_list, 4)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-
-        return render(request, 'home.html', {'users': page_obj})
 
 
 def car_saler_form(request):
