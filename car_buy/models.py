@@ -12,4 +12,4 @@ class CarBuyer(models.Model):
     model = models.CharField(max_length=50, null=True)
     year = models.IntegerField(default=2022)
     condition = models.CharField(max_length=10, default='Good')
-    # asking_pricce = models.CharField(max_length=7, default=15000)
+    asking_price = models.CharField(max_length=12, default=15000)

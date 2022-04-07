@@ -30,13 +30,13 @@ def car_buyer_save(request, id):
             model = request.POST.get('model')
             year = request.POST.get('year')
             condition = request.POST.get('condition')
-            # asking_price = request.POST.get('asking_price')
+            asking_price = request.POST.get('asking_price')
 
             buyer_data = CarBuyer(buyer_name=name, buyer_mobile=number, email=email, make=make,
-                                  model=model, year=year, condition=condition)
+                                  model=model, year=year, condition=condition, asking_price=asking_price)
             buyer_data.save()
             car_sold = CarSaler.objects.get(id=car_id)
-            
+
             car_sold.is_sell = True
             car_sold.save()
             print(car_sold.saler_name)
@@ -50,4 +50,5 @@ def car_buyer_save(request, id):
             return render(request, 'regsuccess.html')
 
         else:
+            print(buyer_save.errors)
             return HttpResponse('Form is not valid, please validate the form')
