@@ -37,7 +37,9 @@ class CarSaler(models.Model):
                               decimal_places=2, validators=[
                                   MinMoneyValidator(Money(1000, 'USD')),
                                   MaxMoneyValidator(Money(100000, 'USD')),
-                              ], default_currency='USD')
+                              ], default_currency='USD', error_messages={
+                                  "message": "price should be less than 100000 & greater than 1000."
+                              })
     is_sell = models.BooleanField(default=False)
 
     def __str__(self):

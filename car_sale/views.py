@@ -50,6 +50,8 @@ def search(request):
             return render(request, 'home.html', {'users': page_obj, 'searchval': search_text})
         else:
             return render(request, 'not_found.html')
+    else:
+        return render(request, 'searcherror.html')
 
 
 def car_saler_form(request):
