@@ -58,16 +58,11 @@
     </div>
     <br><br><br><br><br><br><br>
         <form method='GET' action="{% url 'search'%}">
-            {% comment %} {% csrf_token %} {% endcomment %}
             
-       
-    
-       
             <input type="text" placeholder="Search car" name="txtsearch" id='searchbox' value="{{searchval}}">
             <input  type="submit"  value="search">
             <button type="reset" onclick="searchfun()"><a href="{% url 'home'%}" style="text-decoration:none;">Reset</a></button>
             <br><br>
-            {% comment %} {% csrf_token %} {% endcomment %}
             {% block body %}
             <table border='5px'>
                 <thead>
