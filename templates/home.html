@@ -32,9 +32,17 @@
     <script>
         
         function resetfun() {
-        var search = document.getElementById('searchbox').value =""
-        console.log(search);
+            var search = document.getElementById('searchbox').value =""
         }
+
+        function validateForm() {
+            let search = document.forms["indexForm"]["txtsearch"].value;
+            if (search == "") {
+                alert("Enter your filter data in searchbox!");
+                return false;
+            }
+        }
+        
     </script>
 </head>  
 <body>
@@ -57,7 +65,7 @@
         </div>
     </div>
     <br><br><br><br><br><br><br>
-        <form method='GET' action="{% url 'search'%}">
+        <form method='GET' action="{% url 'search'%}" name="indexForm" onsubmit="return validateForm()">
             
             <input type="text" placeholder="Search car" name="txtsearch" id='searchbox' value="{{searchval}}">
             <input  type="submit"  value="search">
